@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment on fabrique un jeu vidéo ?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Afacad+Flux:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. CONFIGURATION DE BASE */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #f0f2f5;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            place-items: center;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            align-items: center;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Afacad Flux', sans-serif;
+            height: 720px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 40px;
+            position: relative;
+            width: 1280px;
+        }
+
+        /* Décorations de fond (Gradient Blobs) */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(220, 253, 139, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        /* TYPOGRAPHIE */
+        h1, h2, .slide-title {
+            font-family: 'Comfortaa', cursive;
+            color: #2d3436;
+            margin: 0;
+        }
+
+        h1 { font-size: 80px; text-align: center; line-height: 1.1; }
+        .slide-title { font-size: 50px; width: 100%; margin-bottom: 30px; border-left: 10px solid #bc84ee; padding-left: 20px; }
+        p, li { font-size: 24px; color: #4b4b4b; line-height: 1.4; }
+        
+        .code-block {
+            background-color: #2d3436;
+            color: #f1f2f6;
+            padding: 20px;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin-top: 15px;
+            border: 4px solid #dcfd8b;
+        }
+
+        .code-comment { color: #a29bfe; font-style: italic; }
+
+        /* LAYOUTS */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .image-wrapper {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .tile {
+            background-color: #f1f2f6;
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .tile .icon { font-size: 50px; margin-bottom: 15px; color: #ff823a; }
+
+        /* Section Title Custom */
+        .section-title-layout hr {
+            border: none;
+            height: 8px;
+            background: linear-gradient(90deg, #dcfd8b, #bc84ee);
+            width: 200px;
+            margin: 20px auto;
+            border-radius: 4px;
+        }
+
+        /* Timeline Styles */
+        .timeline-layout {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            padding: 40px 0;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            height: 6px;
+            background: #e0e0e0;
+            width: 100%;
+            z-index: 0;
+        }
+        .timeline-item {
+            background: white;
+            border: 4px solid #bc84ee;
+            border-radius: 20px;
+            padding: 15px;
+            width: 22%;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* Bleed Image Right Layout Fix */
+        .bleed-image-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0 !important;
+            align-items: start;
+        }
+        .bleed-image-layout .content-container { padding: 60px; }
+        .bleed-image-layout img { height: 720px; width: 100%; object-fit: cover; border-radius: 0 20px 20px 0; }
+
+        /* Highlight Numbers */
+        .number-box {
+            font-size: 120px;
+            font-weight: 700;
+            color: #ff823a;
+            font-family: 'Comfortaa';
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Titre -->
+<div class="slide-container" id="slide1" style="background-color: #dcfd8b;">
+    <div class="content-area" style="text-align: center;">
+        <h1>Comment on fabrique un jeu vidéo ?</h1>
+        <p style="font-size: 32px; font-weight: 500; margin-top: 20px;">L'aventure derrière ton jeu <br><b>Fireball Dash</b></p>
+        <div style="margin-top: 40px;">
+            <i class="fa-solid fa-gamepad" style="font-size: 100px; color: #2d3436;"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 2: Les ingrédients -->
+<div class="slide-container" id="slide2">
+    <div class="section-title-layout">
+        <h1 style="font-size: 60px;">Les 3 ingrédients magiques</h1>
+        <hr>
+        <p>Comme une recette de gâteau, un jeu a besoin de 3 choses :</p>
+    </div>
+    <div class="content-area" style="margin-top: 40px;">
+        <div style="display: flex; gap: 30px; width: 100%;">
+            <div class="tile" style="background-color: #fdd5bd;">
+                <div class="icon"><i class="fa-solid fa-bone"></i></div>
+                <h3>L'HTML</h3>
+                <p>C'est le <b>squelette</b>. On place les objets (boutons, écran).</p>
+            </div>
+            <div class="tile" style="background-color: #dcfd8b;">
+                <div class="icon"><i class="fa-solid fa-shirt"></i></div>
+                <h3>Le CSS</h3>
+                <p>C'est le <b>costume</b>. On choisit les couleurs et les formes.</p>
+            </div>
+            <div class="tile" style="background-color: #bc84ee;">
+                <div class="icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>Le JavaScript</h3>
+                <p>C'est le <b>cerveau</b>. Il décide comment on bouge et gagne.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: HTML -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">HTML : On dessine la carte</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p>Le code HTML dit : "Je veux un écran pour dessiner (Canvas) et un compteur de pièces."</p>
+                <div class="code-block">
+                    &lt;!-- L'écran de jeu --&gt;<br>
+                    &lt;canvas id="gameCanvas"&gt;&lt;/canvas&gt;<br>
+                    <br>
+                    &lt;!-- Le compteur de pièces --&gt;<br>
+                    &lt;span id="coin-count"&gt;0&lt;/span&gt;
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/16782345760841000294" alt="Enfant qui dessine un niveau">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: CSS -->
+<div class="slide-container bleed-image-layout" id="slide4">
+    <div class="content-container">
+        <h2 class="slide-title">CSS : On décore !</h2>
+        <p>Sans CSS, le jeu serait tout triste et blanc. Le code CSS donne de la couleur au ciel et place les boutons.</p>
+        <div class="code-block">
+            #game-container {<br>
+            &nbsp;&nbsp;<span class="code-comment">/* Ciel bleu dégradé */</span><br>
+            &nbsp;&nbsp;background: linear-gradient(to bottom, #87CEEB, #E0F6FF);<br>
+            }
+        </div>
+    </div>
+    <img src="http://googleusercontent.com/image_collection/image_retrieval/7254748813226290934" alt="Interface colorée">
+</div>
+
+<!-- Slide 5: JavaScript Variables -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">La mémoire du jeu</h2>
+    <div class="content-area">
+        <div class="two-column" style="grid-template-columns: 400px 1fr;">
+            <div class="image-wrapper" style="border-radius: 50%; height: 400px;">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/1216889178345643905" alt="Pièce d'or">
+            </div>
+            <div>
+                <p>Le JavaScript utilise des <b>Variables</b>. C'est comme des boîtes où l'on range des informations qui changent.</p>
+                <div class="code-block">
+                    let coinsCollected = 0; <span class="code-comment">// On commence à zéro</span><br>
+                    let currentGravity = 0.6; <span class="code-comment">// La force qui nous fait tomber</span>
+                </div>
+                <p style="margin-top: 15px;">Quand tu attrapes une pièce, on ouvre la boîte et on fait +1 !</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Le Héros -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Comment naît Monsieur Stick ?</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p>Le personnage "옷" n'est pas une image, il est <b>dessiné par le code</b> avec des lignes et des ronds, 60 fois par seconde !</p>
+                <div class="code-block">
+                    <span class="code-comment">// Dessiner la tête (un rond)</span><br>
+                    ctx.arc(px, py - 15, 8, 0, Math.PI*2);<br>
+                    <br>
+                    <span class="code-comment">// Dessiner le corps (une ligne)</span><br>
+                    ctx.lineTo(px, py + 10);
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/9700960604950646746" alt="Stickman qui saute">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: La Gravité -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">La Magie de la Science</h2>
+    <div class="content-area">
+        <div class="two-column" style="grid-template-columns: 40% 1fr;">
+            <div style="text-align: center;">
+                <div class="number-box">0.6</div>
+                <p>C'est le chiffre magique de la gravité.</p>
+            </div>
+            <div>
+                <h3>Pourquoi on tombe ?</h3>
+                <p>Dans le code, on dit au personnage : "À chaque instant, ta vitesse vers le bas augmente un petit peu."</p>
+                <div class="code-block">
+                    player.vy += currentGravity; <span class="code-comment">// On tire vers le bas</span><br>
+                    player.y += player.vy; <span class="code-comment">// On déplace le héros</span>
+                </div>
+                <p style="margin-top: 15px; font-style: italic;">Si tu changes 0.6 par 0.1, tu voleras comme sur la Lune !</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Le Cœur du jeu -->
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Le cœur qui bat (La Boucle)</h2>
+    <div class="content-area">
+        <p style="text-align: center;">Un jeu ne s'arrête jamais de réfléchir. Il fait ce cycle <b>60 fois par seconde</b> :</p>
+        <div class="timeline-layout">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <i class="fa-solid fa-keyboard" style="color: #bc84ee;"></i>
+                <h4>1. Écouter</h4>
+                <p style="font-size: 14px;">Tu appuies sur une touche ?</p>
+            </div>
+            <div class="timeline-item">
+                <i class="fa-solid fa-calculator" style="color: #ff823a;"></i>
+                <h4>2. Calculer</h4>
+                <p style="font-size: 14px;">Changer la position du héros.</p>
+            </div>
+            <div class="timeline-item">
+                <i class="fa-solid fa-eye" style="color: #dcfd8b;"></i>
+                <h4>3. Vérifier</h4>
+                <p style="font-size: 14px;">On a touché une boule de feu ?</p>
+            </div>
+            <div class="timeline-item">
+                <i class="fa-solid fa-paintbrush" style="color: #bc84ee;"></i>
+                <h4>4. Dessiner</h4>
+                <p style="font-size: 14px;">Afficher la nouvelle image.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <i class="fa-solid fa-heart-pulse" style="font-size: 60px; color: #ff4757;"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Collisions -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Aïe ! Ça pique ! (Les Collisions)</h2>
+    <div class="content-area">
+        <div style="display: flex; gap: 20px;">
+            <div class="tile">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/1953979177556896496" alt="Boule de feu" style="height: 100px; margin-bottom: 10px;">
+                <h4>Boule de feu</h4>
+                <p style="font-size: 16px;">Si Distance < Rayon : <br><b>GAME OVER</b></p>
+            </div>
+            <div class="tile">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/12579729187929784827" alt="Canon" style="height: 100px; margin-bottom: 10px;">
+                <h4>Les Canons</h4>
+                <p style="font-size: 16px;">Ils tirent tous les 120 battements de cœur.</p>
+            </div>
+            <div class="tile">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/1216889178345643905" alt="Pièce" style="height: 100px; margin-bottom: 10px;">
+                <h4>Les Pièces</h4>
+                <p style="font-size: 16px;">Si touché : <br><b>PIÈCES + 1</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: IA Gemini -->
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Le Génie dans le Jeu (L'IA)</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p>Quand tu cliques sur <b>"Cast Spell"</b>, tu parles à l'IA Gemini. Elle comprend tes mots et transforme le code en direct !</p>
+                <div class="code-block">
+                    <span class="code-comment">// Le code envoyé à Gemini</span><br>
+                    "Transforme ce souhait : <br>'Gravité de la lune' <br>en paramètres de jeu."
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/13744348930893618616" alt="Robot Génie">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Fin -->
+<div class="slide-container" id="slide11" style="background-color: #bc84ee;">
+    <div class="content-area" style="text-align: center; color: white;">
+        <h1 style="color: white;">À vous de jouer !</h1>
+        <p style="font-size: 32px; margin-top: 20px;">Quel numéro vas-tu changer en premier ?</p>
+        <div style="margin-top: 50px;">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/11526350909881724561" alt="Enfants contents" style="width: 400px; border-radius: 20px; border: 5px solid white;">
+        </div>
+        <p style="margin-top: 30px; font-weight: bold;">Le code est ton super-pouvoir !</p>
+    </div>
+</div>
+
+</body>
+</html>
